@@ -18,9 +18,19 @@
         <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/avatar.png') }}">
         {{ user.name }}'s Watchlist
     </h2>
+
+    <!--有些地方则需要根据登录状态分别显示不同的内容，比如基模板（base.html）中的导航栏。
+        如果用户已经登录，就显示设置和登出链接，否则显示登录链接：-->
     <nav>
         <ul>
-            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('index') }}">Home</a>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+            </li>
         </ul>
     </nav>
     
