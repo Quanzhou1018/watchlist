@@ -4,15 +4,15 @@ import click
 from watchlist import app, db
 from watchlist.models import User, Movie
 
-
-@app.cli.command()
-@click.option('--drop', is_flag=True, help='Create after drop.')
+#自动执行数据库表操作
+@app.cli.command()#注册为命令
+@click.option('--drop', is_flag=True, help='Create after drop.')#设置选项
 def initdb(drop):
     """Initialize the database."""
-    if drop:
-        db.drop_all()
-    db.create_all()
-    click.echo('Initialized database.')
+    if drop:    #判断是否输入了选项
+        db.drop_all()   #删除表
+    db.create_all() #创建表和数据库文件
+    click.echo('Initialized database.')#输出提示信息
 
 
 @app.cli.command()
@@ -50,7 +50,7 @@ def forge():
 def admin(username, password):
     """Create user."""
     db.create_all()
-
+#对模型类的 query 属性调用可选的过滤方法和查询方法
     user = User.query.first()
     if user is not None:
         click.echo('Updating user...')

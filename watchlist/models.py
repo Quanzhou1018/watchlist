@@ -4,7 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from watchlist import db
 
-
+#让存储用户的 User 模型类继承 Flask-Login 提供的 UserMixin 类
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
