@@ -12,7 +12,7 @@ from flask_login import login_required,logout_user,current_user
 
 app = Flask(__name__)
 # 在扩展类实例化前加载配置
-db=SQLAlchemy(app)
+
 login_manager = LoginManager(app)  # 实例化扩展类
 login_manager.login_view = 'login'
 
@@ -21,6 +21,7 @@ app.config['SECRET_KEY'] = 'dev'  # 等同于 app.secret_key = 'dev'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(app.root_path, 'data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # 关闭对模型修改的监控
+db=SQLAlchemy(app)
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
